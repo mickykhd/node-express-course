@@ -3,7 +3,7 @@ const app = express();
 const tasks = require("./routes/tasks");
 const port = 3000;
 
-//middleware
+//middleware to sending json from our application
 
 app.use(express.json());
 

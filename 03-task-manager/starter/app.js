@@ -3,17 +3,21 @@ const app = express();
 const tasks = require("./routes/tasks");
 const connectDB = require("./db/connect");
 require("dotenv").config();
+const notFound = require("./middleware/not-found");
+const errorHandlerMiddleware = require("../starter/middleware/errorHandler");
+
 //middleware to sending json from our application
 app.use(express.json());
+app.use(express.static("./public"));
 
 //routes
-app.get("/", (req, res) => {
-  res.send("Task manager App");
-});
 
 app.use("/api/v1/tasks", tasks);
+app.use(errorHandlerMiddleware);
 
-const port = 3000;
+app.use(notFound);
+
+const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
